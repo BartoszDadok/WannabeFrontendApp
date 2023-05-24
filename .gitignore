@@ -16,6 +16,5 @@ web-build/
 .env
 certs
 certs/
-
 # macOS
 .DS_Store
