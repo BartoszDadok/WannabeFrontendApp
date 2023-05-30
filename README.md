@@ -1,113 +1,89 @@
-# Trail - Increase your sales!
+# Wannabe App - Prepare for your IT interview!
 
 ## About The Project
-**Trail** is a project which will help increase sales, especially for bloggers who sell their own products. **I only created the frontend side of this project for now.** You can see the frontend but the backend of the project is still a work in progress.
 
-**Trail** is a demo project with dummy data. 
+**Wannabe App** has been created in order to help people prepare for their interviews and better understand programming languages. There are hundreds of sample interview questions with answers and detailed explanations for frontend technologies.
 
-**A quick preview of the Trail Landing Page:**
+**Everyone can download Wannabe App**.
+JavaScript, HTML and CSS tutorials are available for free. TypeScript and React are paid features.
 
-![landingPageGIF](https://github.com/BartoszDadok/TrailLandingPageFrontend/assets/101389945/1f4ffd48-7fa0-4107-81d1-538e64fc856c)
+**Wannabe App is available in Apple and Play stores:**
 
+- Apple Store - https://apps.apple.com/us/app/wannabe/id6446692315
+- Play Store - https://play.google.com/store/apps/details?id=com.bartoszdadok.Wannabe
 
-**A quick preview of the Dashboard Page:**
+**A quick preview of the Wannabe App:**
 
-![dashboardGIF](https://github.com/BartoszDadok/TrailLandingPageFrontend/assets/101389945/ec1ad49e-3e26-4b08-a804-09d8fe59b26f)
+![appromoGIF](https://github.com/BartoszDadok/WannabeFrontendApp/assets/101389945/4ad6041d-786f-428c-883e-a9c32df7175a)
 
-## **Links to the Trail sites:**. 
-- Trail Landing Page - https://trail-landing-page.vercel.app/
-- Trail Dashboard - https://trail-dashboard.vercel.app/
+### Built With:
 
+**Frontend:**
 
-## How I came up with the idea for Trail.
-I worked in marketing and it was very hard to find a tool to track only converted users. 
+- React Native
+- Expo
+- Stripe
 
-Imagine that you run a blog and sell products such as books, online tutorials and so on. In order to increase sales you want to know everything about the people who already bought your products.
+**Backend:**
 
-You would like to know which articles and pages on your blog convinced users to buy your products. You would like to have a full-paying user`s path from the first visit until they buy a product advertised on your blog.
-
-![graphs](https://github.com/BartoszDadok/TrailLandingPageFrontend/assets/101389945/8d577aad-57a8-453e-88dc-cf0c43fa1eb3)
-
-**With this information, you can see which pages you should promote more than others.**
-
-## Problems and solutions:
-- **First problem** -
-Theoretically you can use Google Analytics or similar tools to do that, but in practice, there is no easy way to set up Google Analytics to track only paying users. You have to have the technical knowledge to set up a tool that works that way.
-
-- **Second problem** - 
-Using cookies and tracking people between different domains. Bloggers use their blogs most often only to create articles. The selling pages are usually placed on different domains and subdomains. Without specific knowledge about Cookies and CORS, it's almost impossible to track your customers. Tools like Google Analytics and Yandex Metrica do not make it easy to track this information between domains.
-
-This tool potentially can show the full paths of converted users, working between domains and subdomains, with understandable configurations adjusted for ease of use.  
-
-## Built With:
-**Frontend Landing Page:**
-- Next.js
-- Styled Components
-- TypeScript
-
-**Frontend Dashboard:**
-- React
-- Redux Toolkit
-- GraphQL
-- Styled Components
-- TypeScript
-
-**Backend(created only for serving dummy data with GraphQL):**
 - Node.js
-- Express
-- GraphQL
 - MongoDB
-- Mongoose
+- Express
+- Stripe
 
 ## Getting Started
 
-There are two ways to run frontend on your local machine:
+There are two ways to install and use the App:
 
-1. You can just click the links below:
-- Trail Landing Page - https://trail-landing-page.vercel.app/
-- Trail Dashboard - https://trail-dashboard.vercel.app/
+1. You can download it for free from Apple or Play Stores:
 
-2. You can run sites locally on your machine.
+- Apple Store - https://apps.apple.com/us/app/wannabe/id6446692315
+- Play Store - https://play.google.com/store/apps/details?id=com.bartoszdadok.Wannabe
 
-### Local installation - Landing Page
+2. You can install Wannabe App locally on your phone.
+
+### Local installation on your phone:
+
 1. Clone the repo:
+
    ```sh
-   git clone https://github.com/BartoszDadok/TrailLandingPageFrontend.git
+   git clone https://github.com/BartoszDadok/WannabeFrontendApp.git
    ```
-   
+
 2. Install NPM packages:
+
    ```sh
    npm install
    ```
 
-3. Open the Visual Studio Code terminal and run this command:
-   ```sh
-   npm run dev
-   ```
-   After running this command you will see the **Trail** landing page.
+3. Install the Expo App on your phone.
+   Installing the Expo App is the simplest way to run Wannabe App locally on your phone.
 
+- Apple Store - https://apps.apple.com/pl/app/expo-go/id982107779
+- Play Store - https://play.google.com/store/apps/details?id=host.exp.exponent
 
-### Local installation - Dashboard
-1. Clone the repo:
+4. Open the cloned folder "WannabeFrontendApp" via Visual Studio Code.
+
+5. Open the Visual Studio Code terminal and run this command:
+
    ```sh
-   git clone https://github.com/BartoszDadok/TrailDashboardFrontend.git
-   ```
-   
-2. Install NPM packages:
-   ```sh
-   npm install
+   npm run tunnel
    ```
 
-3. Open the Visual Studio Code terminal and run this command:
-   ```sh
-   npm start
-   ```
-   After running this command you will see the **Trail** dashboard page.
+   After running this command you will see the QR Code. If you try to run this command via other terminals like Bash, QR Code can be not displayed. I recommend using Visual Studio Code terminal to do this.
 
-## Links to all Trail`s Repositories:
-- Landing Page- https://github.com/BartoszDadok/TrailLandingPageFrontend.git
-- Dashboard- https://github.com/BartoszDadok/TrailDashboardFrontend.git
-- Backend- https://github.com/BartoszDadok/TrailBackend.git
+6. Open the Expo app and scan the QR Code. After a while, Wannabe App will automatically open on your phone.
+
+## Usage
+
+The best part of the Wannabe App is that it features simple to understand answers.
+For example, a very common question from a JavaScript interview is **What is the Callback Queue?**
+
+Here is an example in dark mode:
+
+![gifGithubCallback](https://github.com/BartoszDadok/WannabeFrontendApp/assets/101389945/d7024a9c-1fe2-4e01-b75b-6edd047a61d7)
+
+This is a simple, but understandable detailed answer with animation. This is the main power of the Wannabe App.
 
 ## License
 
