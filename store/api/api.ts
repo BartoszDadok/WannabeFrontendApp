@@ -26,7 +26,7 @@ interface Flashcards {
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://champagne-cockroach-wear.cyclic.app/",
+    baseUrl: "https://wannabe.cyclic.app/",
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).userData.token;
       if (token) {

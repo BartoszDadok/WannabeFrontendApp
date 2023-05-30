@@ -67,6 +67,7 @@ const FrontCardQuestion = ({ frontCard }: Props) => {
 const styles = StyleSheet.create({
   frontCard: {
     flex: 1,
+    paddingHorizontal: 20,
     width: "100%",
     justifyContent: "center",
     alignItems: "center",

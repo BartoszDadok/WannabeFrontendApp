@@ -18,12 +18,28 @@ const FrontCardHeader = ({ languageName, flashcardNumber }: Props) => {
       : capitalizeFirstLetter(languageName);
 
   return (
-    <View>
+    <View
+      style={{
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
       <Text style={[styles.headerText, { color: colors[mode].textColor }]}>
         {capitalizedLanguageName} interview question
       </Text>
-      <Text style={[styles.order, { color: colors[mode].orderColor }]}>
-        {flashcardNumber + 1}
+      <Text
+        style={[
+          styles.order,
+          {
+            color: colors[mode].textColor,
+            backgroundColor: colors[mode].orderbackGroundColor,
+          },
+        ]}
+      >
+        Card: {flashcardNumber + 1}
       </Text>
     </View>
   );
@@ -40,12 +56,12 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderBottomWidth: 0.5,
     borderBottomColor: "#323232",
+    marginBottom: 5,
   },
   order: {
-    position: "absolute",
-    top: 0,
-    fontFamily: "open-sans-bold",
-    right: 0,
-    fontSize: 170,
+    color: "black",
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    fontSize: 18,
   },
 });

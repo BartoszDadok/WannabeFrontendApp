@@ -26,16 +26,24 @@ const BackCardHeader = ({ flashcardNumber, frontCard }: Props) => {
   };
 
   return (
-    <View style={styles.frontCard}>
-      <Text style={[styles.order, { color: colors[mode].orderColor }]}>
-        {flashcardNumber + 1}
-      </Text>
+    <View style={styles.containter}>
       <RenderHtml
         // @ts-ignore
         tagsStyles={mixedStyleFront}
         contentWidth={deviceWidth}
         source={frontCard}
       />
+      <Text
+        style={[
+          styles.order,
+          {
+            color: colors[mode].textColor,
+            backgroundColor: colors[mode].orderbackGroundColor,
+          },
+        ]}
+      >
+        Card: {flashcardNumber + 1}
+      </Text>
     </View>
   );
 };
@@ -43,14 +51,18 @@ const BackCardHeader = ({ flashcardNumber, frontCard }: Props) => {
 export default BackCardHeader;
 
 const styles = StyleSheet.create({
-  frontCard: {
+  containter: {
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column",
     marginVertical: 5,
   },
   order: {
-    position: "absolute",
-    top: -40,
-    fontFamily: "open-sans-bold",
-    right: -25,
-    fontSize: 150,
+    color: "black",
+    paddingVertical: 5,
+    paddingHorizontal: 15,
+    fontSize: 18,
   },
 });

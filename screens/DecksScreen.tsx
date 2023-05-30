@@ -45,35 +45,35 @@ const DecksScreen = () => {
         <DeckTab
           isfreeLanguage={true}
           onPress={pressHandler}
-          amountOfCards={101}
+          amountOfCards={142}
         >
           Javascript
         </DeckTab>
         <DeckTab
           isfreeLanguage={true}
           onPress={pressHandler}
-          amountOfCards={64}
+          amountOfCards={58}
         >
           HTML
         </DeckTab>
         <DeckTab
           isfreeLanguage={true}
           onPress={pressHandler}
-          amountOfCards={44}
+          amountOfCards={34}
         >
           CSS
         </DeckTab>
         <DeckTab
           isfreeLanguage={false}
           onPress={pressHandler}
-          amountOfCards={104}
+          amountOfCards={51}
         >
           React
         </DeckTab>
         <DeckTab
           isfreeLanguage={false}
           onPress={pressHandler}
-          amountOfCards={92}
+          amountOfCards={54}
         >
           TypeScript
         </DeckTab>
