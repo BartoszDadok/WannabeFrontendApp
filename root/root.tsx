@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { StackNavigatorParamList } from "./types/navigations.types";
-import { logIn } from "./store/state/userDataSlice";
-import { useAppDispatch, useAppSelector } from "./store/hooks";
+import { StackNavigatorParamList } from "../types/navigations.types";
+import { logIn } from "../store/state/userDataSlice";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { StripeProvider } from "@stripe/stripe-react-native";
-import { removeVeryficationToken } from "./store/state/veificationTokenSlice";
-import FlashcardScreen from "./screens/FlashcardScreen";
-import { colors } from "./styles/colors";
-import DrawerNavigator from "./navigator/DrawerNavigatior";
+import { removeVeryficationToken } from "../store/state/veificationTokenSlice";
+import FlashcardScreen from "../screens/FlashcardScreen";
+import { colors } from "../styles/colors";
+import DrawerNavigator from "../navigator/DrawerNavigatior";
 import { Appearance, Platform } from "react-native";
-import { updateTheme } from "./store/state/themeSlice";
+import { updateTheme } from "../store/state/themeSlice";
 import * as SplashScreen from "expo-splash-screen";
-import { fetchAsyncStorage } from "./utils/fetchAsyncStorage";
-import { fetchStripePublishableKey } from "./utils/fetchStripePublishableKey";
-import { fetchAsyncStorageTheme } from "./utils/fetchAsyncStorageTheme";
+import { fetchAsyncStorage } from "../utils/fetchAsyncStorage";
+import { fetchStripePublishableKey } from "../utils/fetchStripePublishableKey";
+import { fetchAsyncStorageTheme } from "../utils/fetchAsyncStorageTheme";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -112,7 +112,7 @@ export const Root = () => {
           <Stack.Screen
             options={{
               headerShown: true,
-              title: "Card",
+              title: "Go back to decks",
               headerTintColor: colors[mode].textColor,
               headerStyle: {
                 backgroundColor: colors[mode].menuColor,

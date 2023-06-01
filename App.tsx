@@ -4,7 +4,7 @@ import { store } from "./store";
 import { useFonts } from "expo-font";
 import AppLoading from "./components/atoms/AppLoading";
 import { Appearance } from "react-native";
-import { Root } from "./root";
+import { Root } from "./root/root";
 
 export default function App() {
   const mode = Appearance.getColorScheme() as "light" | "dark";
