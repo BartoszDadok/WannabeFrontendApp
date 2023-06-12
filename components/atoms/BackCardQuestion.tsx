@@ -1,4 +1,4 @@
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet, Dimensions, ScrollView } from "react-native";
 import React from "react";
 import { FlashList } from "@shopify/flash-list";
 import RenderHtml, { HTMLSource } from "react-native-render-html";
@@ -26,6 +26,29 @@ const BackCardQuestion = ({ backCard }: Props) => {
       <FlashList
         data={backCard}
         renderItem={({ item }: { item: HTMLSource }) => {
+          const renderCodeBlockWithHorizontalScroll =
+            "html" in item && item.html.startsWith(`<pre class="hljs scroll"`);
+
+          if (renderCodeBlockWithHorizontalScroll) {
+            return (
+              <Animated.View entering={FadeIn} style={{ flex: 1 }}>
+                <ScrollView
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={true}
+                  persistentScrollbar={true}
+                >
+                  <RenderHtml
+                    containerStyle={{ fontColor: "white" }}
+                    classesStyles={codeThemeClases}
+                    // @ts-ignore
+                    tagsStyles={tagsStyles}
+                    contentWidth={deviceWidth}
+                    source={item}
+                  />
+                </ScrollView>
+              </Animated.View>
+            );
+          }
           return (
             <Animated.View entering={FadeIn} style={{ flex: 1 }}>
               <RenderHtml

@@ -4,6 +4,7 @@ import { setupListeners } from "@reduxjs/toolkit/query";
 import userData from "./state/userDataSlice";
 import veryficationToken from "./state/veificationTokenSlice";
 import theme from "./state/themeSlice";
+import flashcard from "./state/flashCardSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,9 +12,10 @@ export const store = configureStore({
     userData,
     veryficationToken,
     theme,
+    flashcard,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(api.middleware),
+    getDefaultMiddleware({ serializableCheck: false }).concat(api.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;

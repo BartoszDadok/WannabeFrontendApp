@@ -1,21 +1,25 @@
 import { Platform, StyleSheet, Text, View, Dimensions } from "react-native";
 import React from "react";
 import NavigationButton from "../atoms/NavigationButton";
-interface Props {
-  backHandler: () => void;
-  nextQuestionHandler: () => void;
-}
+import { useAppDispatch } from "../../store/hooks";
+import { setActiveCardSide, swapCard } from "../../store/state/flashCardSlice";
 
-const BackCardNavigationButtons = ({
-  backHandler,
-  nextQuestionHandler,
-}: Props) => {
+const BackCardNavigationButtons = () => {
+  const dispatch = useAppDispatch();
   const deviceWidth = Dimensions.get("window").width;
   const buttonWidth = deviceWidth / 2.5 - 20;
+
+  const nextQuestionHandler = () => {
+    dispatch(setActiveCardSide("front"));
+    dispatch(swapCard("next"));
+  };
+
   return (
     <View style={styles.container}>
       <NavigationButton
-        handler={backHandler}
+        handler={() => {
+          dispatch(setActiveCardSide("front"));
+        }}
         width={buttonWidth}
         title={"Back"}
       />

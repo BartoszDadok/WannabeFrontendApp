@@ -1,55 +1,34 @@
 import React from "react";
-import {
-  View,
-  StyleSheet,
-  Touchable,
-  TouchableWithoutFeedback,
-  Pressable,
-  TouchableOpacity,
-  Dimensions,
-} from "react-native";
+import { StyleSheet, TouchableWithoutFeedback, Dimensions } from "react-native";
 import Animated, { SlideInLeft } from "react-native-reanimated";
-import { generateNextOrPrevNumber } from "../../utils/generateNextOrPrevNumber";
 import { HTMLSource } from "react-native-render-html";
 import FrontCardQuestion from "../atoms/FrontCardQuestion";
 import FrontCardHeader from "../atoms/FrontCardHeader";
 import FrontCardNavigationButtons from "../molecules/FrontCardNavigationButtons";
 import GestureRecognizer from "react-native-swipe-gestures";
+import { useAppSelector } from "../../store/hooks";
+import { swapCard } from "../../store/state/flashCardSlice";
+import { useAppDispatch } from "../../store/hooks";
 type Flashcard = HTMLSource[][];
-
 interface Props {
   languageName: string;
-  flashcard: Flashcard;
-  setActiveCardSide: React.Dispatch<React.SetStateAction<string>>;
-  flashcardNumber: number;
-  setFlashcardNumber: React.Dispatch<React.SetStateAction<number>>;
-  flashcardsAmount: any;
 }
 
-const FrontCard = ({
-  setActiveCardSide,
-  flashcardNumber,
-  setFlashcardNumber,
-  flashcard,
-  languageName,
-  flashcardsAmount,
-}: Props) => {
-  const frontCard = flashcard[0];
-  const { width } = Dimensions.get("window");
+const FrontCard = ({ languageName }: Props) => {
+  const { flashcardNumber, flashcardsData } = useAppSelector(
+    (state) => state.flashcard
+  );
+  if (!flashcardsData) return null;
 
-  const questionsHandler = (direction: "next" | "previous") => {
-    const newNumber = generateNextOrPrevNumber(
-      flashcardNumber,
-      flashcardsAmount,
-      direction
-    );
-    setFlashcardNumber(newNumber);
-  };
+  const frontCard = flashcardsData[flashcardNumber][0];
+  const { width } = Dimensions.get("window");
+  const dispatch = useAppDispatch();
+
   const goToNextOrPreviousCardHandler = (e: any) => {
     if (e.nativeEvent.locationX > width / 2) {
-      questionsHandler("next");
+      dispatch(swapCard("next"));
     } else {
-      questionsHandler("previous");
+      dispatch(swapCard("previous"));
     }
   };
 
@@ -61,20 +40,14 @@ const FrontCard = ({
         alignItems: "center",
         backgroundColor: "transparent",
       }}
-      onSwipeLeft={() => questionsHandler("next")}
-      onSwipeRight={() => questionsHandler("previous")}
+      onSwipeLeft={() => dispatch(swapCard("next"))}
+      onSwipeRight={() => dispatch(swapCard("previous"))}
     >
       <TouchableWithoutFeedback onPress={goToNextOrPreviousCardHandler}>
         <Animated.View entering={SlideInLeft} style={styles.container}>
-          <FrontCardHeader
-            flashcardNumber={flashcardNumber}
-            languageName={languageName}
-          />
+          <FrontCardHeader languageName={languageName} />
           <FrontCardQuestion frontCard={frontCard} />
-          <FrontCardNavigationButtons
-            questionsHandler={questionsHandler}
-            setActiveCardSide={setActiveCardSide}
-          />
+          <FrontCardNavigationButtons />
         </Animated.View>
       </TouchableWithoutFeedback>
     </GestureRecognizer>

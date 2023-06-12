@@ -5,11 +5,14 @@ import { useNavigation } from "@react-navigation/native";
 import { FlashcardScreenNavigationProp } from "../types/navigations.types";
 import { useAppSelector } from "../store/hooks";
 import { colors } from "../styles/colors";
+import { useAppDispatch } from "../store/hooks";
+import { resetFlashcards } from "../store/state/flashCardSlice";
 
 const DecksScreen = () => {
   const navigation = useNavigation<FlashcardScreenNavigationProp>();
-
+  const dispatch = useAppDispatch();
   const pressHandler = (languageName: string) => {
+    dispatch(resetFlashcards());
     navigation.navigate("FlashcardScreen", {
       languageName: languageName,
     });
@@ -35,7 +38,7 @@ const DecksScreen = () => {
             styles.textNotificationBar,
           ]}
         >
-          Every day new interview questions are added.
+          Wannabe is a new project. Every day new interview questions are added.
         </Text>
       </View>
       <Text style={[{ color: colors[mode].textColor }, styles.header]}>
@@ -47,7 +50,7 @@ const DecksScreen = () => {
           onPress={pressHandler}
           amountOfCards={142}
         >
-          Javascript
+          JavaScript
         </DeckTab>
         <DeckTab
           isfreeLanguage={true}

@@ -1,6 +1,9 @@
 export interface ApiErrorResponse {
+  data: {
+    message: string;
+    errors: string[];
+  };
   status: number;
-  data: { success: string; errors: string[] };
 }
 
 export function isApiResponse(error: unknown): error is ApiErrorResponse {
@@ -8,6 +11,7 @@ export function isApiResponse(error: unknown): error is ApiErrorResponse {
     typeof error === "object" &&
     error != null &&
     "status" in error &&
+    "data" in error &&
     typeof (error as any).status === "number"
   );
 }

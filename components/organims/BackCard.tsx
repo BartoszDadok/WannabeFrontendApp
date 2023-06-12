@@ -1,56 +1,27 @@
 import React from "react";
 import { Dimensions, View, StyleSheet } from "react-native";
 import Animated, { SlideInLeft } from "react-native-reanimated";
-import { generateNextOrPrevNumber } from "../../utils/generateNextOrPrevNumber";
-import { HTMLSource } from "react-native-render-html";
 import BackCardNavigationButtons from "../molecules/BackCardNavigationButtons";
 import BackCardHeader from "../atoms/BackCardHeader";
 import BackCardQuestion from "../atoms/BackCardQuestion";
+import { useAppSelector } from "../../store/hooks";
 
-type Flashcard = HTMLSource[][];
+const BackCard = () => {
+  const { flashcardNumber, flashcardsData } = useAppSelector(
+    (state) => state.flashcard
+  );
 
-interface Props {
-  flashcard: Flashcard;
-  flashcardNumber: number;
-  setFlashcardNumber: React.Dispatch<React.SetStateAction<number>>;
-  setActiveCardSide: React.Dispatch<React.SetStateAction<string>>;
-  flashcardsAmount: number;
-}
+  if (!flashcardsData) return null;
 
-const BackCard = ({
-  flashcard,
-  flashcardNumber,
-  setFlashcardNumber,
-  setActiveCardSide,
-  flashcardsAmount,
-}: Props) => {
-  const frontCard = flashcard[0][0];
-  const backCard = flashcard[1];
+  const frontCard = flashcardsData[flashcardNumber][0][0];
+  const backCard = flashcardsData[flashcardNumber][1];
 
-  const nextQuestionHandler = () => {
-    const newNumber = generateNextOrPrevNumber(
-      flashcardNumber,
-      flashcardsAmount,
-      "next"
-    );
-    setActiveCardSide("front");
-    setFlashcardNumber(newNumber);
-  };
-  const backHandler = () => {
-    setActiveCardSide("front");
-  };
   return (
     <Animated.View entering={SlideInLeft} style={styles.animatedContainer}>
       <View style={styles.container}>
-        <BackCardHeader
-          flashcardNumber={flashcardNumber}
-          frontCard={frontCard}
-        />
+        <BackCardHeader frontCard={frontCard} />
         <BackCardQuestion backCard={backCard} />
-        <BackCardNavigationButtons
-          backHandler={backHandler}
-          nextQuestionHandler={nextQuestionHandler}
-        />
+        <BackCardNavigationButtons />
       </View>
     </Animated.View>
   );

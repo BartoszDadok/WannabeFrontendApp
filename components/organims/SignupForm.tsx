@@ -53,7 +53,7 @@ const SignupForm = () => {
   const isLoadingResendEmail = result.isLoading;
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && data) {
       dispatch(addVeryficationToken(data.verificationToken));
     }
   }, [isSuccess]);
@@ -85,7 +85,9 @@ const SignupForm = () => {
           </Text>
           <Pressable
             onPress={() => {
-              trigger(veryficationToken);
+              if (veryficationToken) {
+                trigger(veryficationToken);
+              }
             }}
             android_ripple={{ color: "rgba(255,228,0,0,8)" }}
           >

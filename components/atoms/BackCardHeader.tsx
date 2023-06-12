@@ -4,14 +4,13 @@ import RenderHtml, { HTMLSource } from "react-native-render-html";
 import { useAppSelector } from "../../store/hooks";
 import { colors } from "../../styles/colors";
 interface Props {
-  flashcardNumber: number;
   frontCard: HTMLSource;
 }
 
-const BackCardHeader = ({ flashcardNumber, frontCard }: Props) => {
+const BackCardHeader = ({ frontCard }: Props) => {
   const deviceWidth = Dimensions.get("window").width;
   const { mode } = useAppSelector((state) => state.theme);
-
+  const { flashcardNumber } = useAppSelector((state) => state.flashcard);
   const mixedStyleFront = {
     h1: {
       color: colors[mode].textColor,

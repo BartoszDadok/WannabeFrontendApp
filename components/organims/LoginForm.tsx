@@ -16,6 +16,7 @@ import {
 } from "../../types/navigations.types";
 import shortid from "shortid";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
+import { isApiResponse } from "../../utils/isApiErrorResponse";
 
 const validationSchema = Yup.object({
   email: Yup.string().email("Invalid email!").required("Email is required!"),
@@ -40,7 +41,7 @@ const LoginForm = () => {
   const [login, { data, isLoading, error, isSuccess }] = useLoginMutation();
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess && data) {
       const { token, id, email, languages: languagesArrayToStringify } = data;
       const languages = languagesArrayToStringify.toString();
       const userData = { token, id, email, languages };
@@ -75,13 +76,13 @@ const LoginForm = () => {
         </View>
       )}
       {isLoading && <ActivityIndicator size={40} color='rgba(255,228,0,1)' />}
-      {error && !("data" in error) && (
+      {error && !isApiResponse(error) && (
         <Text style={styles.error}>
           Server error, check your internet connection!
         </Text>
       )}
       {error &&
-        "data" in error &&
+        isApiResponse(error) &&
         error.data &&
         error.data.errors &&
         error.data.errors.map((err: string) => {

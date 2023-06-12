@@ -1,21 +1,17 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
+import { capitalizeLetters } from "../../utils/capitalizeLetters";
 import { useAppSelector } from "../../store/hooks";
 import { colors } from "../../styles/colors";
 
 interface Props {
   languageName: string;
-  flashcardNumber: number;
 }
 
-const FrontCardHeader = ({ languageName, flashcardNumber }: Props) => {
+const FrontCardHeader = ({ languageName }: Props) => {
   const { mode } = useAppSelector((state) => state.theme);
-
-  const capitalizedLanguageName =
-    languageName === "html" || languageName === "css"
-      ? languageName.toLocaleUpperCase()
-      : capitalizeFirstLetter(languageName);
+  const { flashcardNumber } = useAppSelector((state) => state.flashcard);
+  const capitalizedLanguageName = capitalizeLetters(languageName);
 
   return (
     <View

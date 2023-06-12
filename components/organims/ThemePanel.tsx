@@ -5,6 +5,7 @@ import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { updateTheme } from "../../store/state/themeSlice";
 import { Entypo } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+
 const ThemePanel = () => {
   const dispatch = useAppDispatch();
 
@@ -52,7 +53,7 @@ const ThemePanel = () => {
             Light
           </Text>
           {mode === "light" && (
-            <Ionicons name='checkmark' size={15} color='rgb(255, 228, 0)' />
+            <Ionicons name='checkmark' size={15} color='black' />
           )}
         </Pressable>
       </View>

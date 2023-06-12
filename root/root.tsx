@@ -13,14 +13,15 @@ import { Appearance, Platform } from "react-native";
 import { updateTheme } from "../store/state/themeSlice";
 import * as SplashScreen from "expo-splash-screen";
 import { fetchAsyncStorage } from "../utils/fetchAsyncStorage";
-import { fetchStripePublishableKey } from "../utils/fetchStripePublishableKey";
 import { fetchAsyncStorageTheme } from "../utils/fetchAsyncStorageTheme";
+import { useLazyGetPublishableStripeKeyQuery } from "../store/api/api";
 
 SplashScreen.preventAutoHideAsync();
 
 const Stack = createNativeStackNavigator<StackNavigatorParamList>();
 
 export const Root = () => {
+  const [getPublishableStripeKey] = useLazyGetPublishableStripeKeyQuery();
   const { mode } = useAppSelector((state) => state.theme);
   const dispatch = useAppDispatch();
 
@@ -54,9 +55,14 @@ export const Root = () => {
   };
 
   const stripeInit = async () => {
-    const publishableKey = await fetchStripePublishableKey();
-    if (publishableKey) {
-      setPublishableKey(publishableKey);
+    try {
+      const { publishableStripeKey } = await getPublishableStripeKey().unwrap();
+      if (publishableStripeKey) {
+        setPublishableKey(publishableStripeKey);
+      }
+    } catch (err) {
+      console.log(err);
+      console.warn("Unable to fetch pusblishable key");
     }
   };
   const removeVeryfiToken = () => {

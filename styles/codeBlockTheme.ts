@@ -145,6 +145,9 @@ export const codeBlockThemeDark = {
   "hljs-property": {
     color: "#9c8502",
   },
+  // "hljs-params": {
+  //   color: "#a50331",
+  // },
 };
 
 export const codeBlockThemeLight = (backGroundColor: string) => {
@@ -293,6 +296,159 @@ export const codeBlockThemeLight = (backGroundColor: string) => {
     },
     "hljs-property": {
       color: "#9c8502",
+    },
+    atrule: {
+      color: "#7c4dff",
+      fontFamily: "open-sans",
+    },
+
+    attribute: {
+      color: "#f6a434",
+      fontFamily: "open-sans",
+    },
+
+    boolean: {
+      color: "#7c4dff",
+      fontFamily: "open-sans",
+    },
+
+    builtin: {
+      color: "#39adb5",
+      fontFamily: "open-sans",
+    },
+
+    cdata: {
+      color: "#39adb5",
+      fontFamily: "open-sans",
+    },
+
+    char: {
+      color: "#39adb5",
+      fontFamily: "open-sans",
+    },
+
+    class: {
+      color: "#39adb5",
+      fontFamily: "open-sans",
+    },
+
+    comment: {
+      color: "#7c8596",
+      fontFamily: "open-sans",
+    },
+
+    constant: {
+      color: "#7c4dff",
+      fontFamily: "open-sans",
+    },
+
+    deleted: {
+      color: "#e53935",
+      fontFamily: "open-sans",
+    },
+
+    doctype: {
+      color: "#aabfc9",
+      fontFamily: "open-sans",
+    },
+
+    entity: {
+      color: "#e53935",
+      fontFamily: "open-sans",
+    },
+
+    function: {
+      color: "#b75501",
+      fontFamily: "open-sans",
+    },
+
+    hexcode: {
+      color: "#f76d47",
+      fontFamily: "open-sans",
+    },
+
+    id: {
+      color: "#7c4dff",
+      fontFamily: "open-sans",
+    },
+
+    important: {
+      color: "#7c4dff",
+      fontFamily: "open-sans",
+    },
+
+    inserted: {
+      color: "#39adb5",
+      fontFamily: "open-sans",
+    },
+
+    keyword: {
+      color: "#015692",
+      fontFamily: "open-sans",
+    },
+
+    number: {
+      color: "#f76d47",
+      fontFamily: "open-sans",
+    },
+
+    operator: {
+      color: "black",
+      fontFamily: "open-sans",
+    },
+
+    prolog: {
+      color: "#aabfc9",
+      fontFamily: "open-sans",
+    },
+
+    property: {
+      color: "#015692",
+      fontFamily: "open-sans",
+    },
+
+    punctuation: {
+      color: "black",
+      fontFamily: "open-sans",
+    },
+    regex: {
+      color: "#6182b8",
+      fontFamily: "open-sans",
+    },
+
+    selector: {
+      color: "#e53935",
+      fontFamily: "open-sans",
+    },
+
+    string: {
+      color: "#54790d",
+      fontFamily: "open-sans",
+    },
+
+    symbol: {
+      color: "#7c4dff",
+      fontFamily: "open-sans",
+    },
+
+    tag: {
+      color: "#b75501",
+      fontFamily: "open-sans",
+    },
+
+    unit: {
+      color: "#f76d47",
+      fontFamily: "open-sans",
+    },
+
+    url: {
+      color: "#e53935",
+      fontFamily: "open-sans",
+    },
+
+    variable: {
+      color: "#e53935",
+      fontFamily: "open-sans",
     },
   };
 };
