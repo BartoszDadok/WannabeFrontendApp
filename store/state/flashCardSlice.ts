@@ -16,11 +16,6 @@ export const flashCardSlice = createSlice({
   name: "flashCard",
   initialState,
   reducers: {
-    setFlashcardNumber: (state, action: PayloadAction<number>) => {
-      if (action.payload) {
-        state.flashcardNumber = action.payload;
-      }
-    },
     setActiveCardSide: (state, action: PayloadAction<"front" | "back">) => {
       if (action.payload) {
         state.activeCardSide = action.payload;
@@ -56,7 +51,6 @@ export const flashCardSlice = createSlice({
 export const {
   setActiveCardSide,
   setFLashcardsData,
-  setFlashcardNumber,
   swapCard,
   resetFlashcards,
 } = flashCardSlice.actions;
