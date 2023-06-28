@@ -23,6 +23,7 @@ JavaScript, HTML and CSS tutorials are available for free. TypeScript and React 
 - React Native
 - Expo
 - Stripe
+- React Testing, JEST
 
 **Backend:**
 
