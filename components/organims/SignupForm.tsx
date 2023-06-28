@@ -13,12 +13,11 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useCreateUserMutation } from "../../store/api/api";
 import shortid from "shortid";
-import { useNavigation } from "@react-navigation/native";
-import { FlashcardScreenNavigationProp } from "../../types/navigations.types";
 import { addVeryficationToken } from "../../store/state/veificationTokenSlice";
 import { api } from "../../store/api/api";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { colors } from "../../styles/colors";
+import { isApiResponse } from "../../utils/isApiErrorResponse";
 const validationSchema = Yup.object({
   email: Yup.string().email("Invalid email!").required("Email is required!"),
   password: Yup.string()
@@ -38,7 +37,6 @@ const validationSchema = Yup.object({
 
 const SignupForm = () => {
   const dispatch = useAppDispatch();
-  const navigation = useNavigation<FlashcardScreenNavigationProp>();
 
   const { veryficationToken } = useAppSelector(
     (state) => state.veryficationToken
@@ -64,127 +62,138 @@ const SignupForm = () => {
     confirmPassword: "",
   };
   return (
-    <FormContainer>
-      {isSuccess && (
-        <View
-          style={[
-            styles.messageContainer,
-            { backgroundColor: colors[mode].primaryColor500 },
-          ]}
-        >
-          <Text style={[styles.messageContainerText, { marginBottom: 7 }]}>
-            Veryfication email has been sent. Please, go to your mailbox and
-            verify your email.
-          </Text>
-          <Text style={[styles.messageContainerText, { marginBottom: 7 }]}>
-            After that you can login and enjoy full access of Wannabe app!
-          </Text>
-          <Text style={styles.messageContainerText}>
-            If you didn't get the veryfication link, click this link and email
-            will be sent again.
-          </Text>
-          <Pressable
-            onPress={() => {
-              if (veryficationToken) {
-                trigger(veryficationToken);
-              }
-            }}
-            android_ripple={{ color: "rgba(255,228,0,0,8)" }}
+    <View testID='SignUpContainer'>
+      <FormContainer>
+        {isSuccess && (
+          <View
+            style={[
+              styles.messageContainer,
+              { backgroundColor: colors[mode].primaryColor500 },
+            ]}
           >
-            <Text
-              style={[
-                styles.messageContainerText,
-                { marginVertical: 5, color: "blue" },
-              ]}
+            <Text style={[styles.messageContainerText, { marginBottom: 7 }]}>
+              Veryfication email has been sent. Please, go to your mailbox and
+              verify your email.
+            </Text>
+            <Text style={[styles.messageContainerText, { marginBottom: 7 }]}>
+              After that you can login and enjoy full access of Wannabe app!
+            </Text>
+            <Text style={styles.messageContainerText}>
+              If you didn't get the veryfication link, click this link and email
+              will be sent again.
+            </Text>
+            <Pressable
+              onPress={() => {
+                if (veryficationToken) {
+                  trigger(veryficationToken);
+                }
+              }}
+              android_ripple={{ color: "rgba(255,228,0,0,8)" }}
             >
-              Send link again
-            </Text>
-          </Pressable>
-          {isSuccessResendEmail && (
-            <Text style={styles.messageContainerTextBold}>
-              Perfect! Email has been sent!
-            </Text>
-          )}
-          {isLoadingResendEmail && (
-            <ActivityIndicator size={30} color={"black"} />
-          )}
-        </View>
-      )}
-      {isLoading && <ActivityIndicator size={40} color='rgba(255,228,0,1)' />}
-      {error && !("data" in error) && (
-        <Text style={styles.error}>
-          Server error, check your internet connection!
-        </Text>
-      )}
-      {error &&
-        "data" in error &&
-        error.data &&
-        error.data.errors &&
-        error.data.errors.map((err: string) => {
-          return (
-            <Text key={shortid()} style={styles.error}>
-              {err}
-            </Text>
-          );
-        })}
-      <Formik
-        initialValues={userInfo}
-        validationSchema={validationSchema}
-        onSubmit={(values, formikActions) => {
-          createUser(values);
-        }}
-      >
-        {({
-          values,
-          errors,
-          handleChange,
-          handleBlur,
-          touched,
-          handleSubmit,
-          isSubmitting,
-        }) => {
-          const { email, password, confirmPassword } = values;
-          return (
-            <View>
-              <FormInput
-                onChangeText={handleChange("email")}
-                value={email}
-                onBlur={handleBlur("email")}
-                label='Email'
-                error={touched.email && errors.email}
-                autoCapitalize='none'
-                placeholder='example@email.com'
-              />
-              <FormInput
-                onChangeText={handleChange("password")}
-                onBlur={handleBlur("password")}
-                value={password}
-                secureTextEntry
-                error={touched.password && errors.password}
-                autoCapitalize='none'
-                label='Password'
-                placeholder='***********'
-              />
-              <FormInput
-                onChangeText={handleChange("confirmPassword")}
-                onBlur={handleBlur("confirmPassword")}
-                error={touched.confirmPassword && errors.confirmPassword}
-                secureTextEntry
-                autoCapitalize='none'
-                value={confirmPassword}
-                label='Confirm password'
-                placeholder='***********'
-              />
-              <FormSubmitButton
-                submitting={isSubmitting}
-                onPress={handleSubmit}
-                title='Sign up'
-              />
-            </View>
-          );
-        }}
-      </Formik>
-    </FormContainer>
+              <Text
+                style={[
+                  styles.messageContainerText,
+                  { marginVertical: 5, color: "blue" },
+                ]}
+              >
+                Send link again
+              </Text>
+            </Pressable>
+            {isSuccessResendEmail && (
+              <Text style={styles.messageContainerTextBold}>
+                Perfect! Email has been sent!
+              </Text>
+            )}
+            {isLoadingResendEmail && (
+              <ActivityIndicator size={30} color={"black"} />
+            )}
+          </View>
+        )}
+        {isLoading && (
+          <ActivityIndicator
+            testID='LoadingIndicator'
+            size={40}
+            color='rgba(255,228,0,1)'
+          />
+        )}
+        {error && !isApiResponse(error) && (
+          <Text style={styles.error}>
+            Server error, check your internet connection!
+          </Text>
+        )}
+        {error &&
+          isApiResponse(error) &&
+          error.data &&
+          error.data.errors &&
+          error.data.errors.map((err: string) => {
+            return (
+              <Text key={shortid()} style={styles.error}>
+                {err}
+              </Text>
+            );
+          })}
+        <Formik
+          initialValues={userInfo}
+          validationSchema={validationSchema}
+          onSubmit={(values, formikActions) => {
+            createUser(values);
+          }}
+        >
+          {({
+            values,
+            errors,
+            handleChange,
+            handleBlur,
+            touched,
+            handleSubmit,
+            isSubmitting,
+          }) => {
+            const { email, password, confirmPassword } = values;
+            return (
+              <View>
+                <FormInput
+                  onChangeText={handleChange("email")}
+                  value={email}
+                  onBlur={handleBlur("email")}
+                  label='Email'
+                  error={touched.email && errors.email}
+                  autoCapitalize='none'
+                  placeholder='example@email.com'
+                  testID='emailInput'
+                />
+                <FormInput
+                  onChangeText={handleChange("password")}
+                  onBlur={handleBlur("password")}
+                  value={password}
+                  secureTextEntry
+                  error={touched.password && errors.password}
+                  autoCapitalize='none'
+                  label='Password'
+                  placeholder='***********'
+                  testID='passwordInput'
+                />
+                <FormInput
+                  onChangeText={handleChange("confirmPassword")}
+                  onBlur={handleBlur("confirmPassword")}
+                  error={touched.confirmPassword && errors.confirmPassword}
+                  secureTextEntry
+                  autoCapitalize='none'
+                  value={confirmPassword}
+                  label='Confirm password'
+                  placeholder='***********'
+                  testID='confirmPasswordInput'
+                />
+                <FormSubmitButton
+                  submitting={isSubmitting}
+                  pressFunc={handleSubmit}
+                  title='Sign up'
+                />
+              </View>
+            );
+          }}
+        </Formik>
+      </FormContainer>
+    </View>
   );
 };
 

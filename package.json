@@ -7,7 +7,9 @@
     "tunnel": "expo start --tunnel",
     "android": "expo start --anid",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "test": "jest ./__tests__",
+    "test:watch": "jest --watch ./__tests__"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.1.1",
@@ -20,8 +22,11 @@
     "@reduxjs/toolkit": "^1.9.2",
     "@shopify/flash-list": "1.4.0",
     "@stripe/stripe-react-native": "0.23.3",
+    "abort-controller": "^3.0.0",
+    "cross-fetch": "^3.1.6",
     "expo": "^48.0.0",
     "expo-font": "~11.1.1",
+    "expo-in-app-purchases": "^14.1.1",
     "expo-splash-screen": "~0.18.1",
     "expo-status-bar": "~1.4.4",
     "formik": "^2.2.9",
@@ -44,12 +49,32 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "@testing-library/react-native": "^12.1.2",
     "@types/hjson": "^2.4.3",
+    "@types/jest": "^29.5.2",
     "@types/react": "~18.0.27",
     "@types/react-native": "~0.70.6",
     "@types/react-redux": "^7.1.25",
+    "@types/react-test-renderer": "^18.0.0",
     "@types/shortid": "^0.0.29",
+    "jest-expo": "^48.0.2",
+    "msw": "^1.2.2",
+    "react-test-renderer": "^18.2.0",
     "typescript": "^4.9.4"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ],
+    "collectCoverage": false,
+    "modulePathIgnorePatterns": [
+      "./.history"
+    ],
+    "setupFilesAfterEnv": [
+      "./setupTests.ts",
+      "./node_modules/react-native-gesture-handler/jestSetup.js"
+    ]
   },
   "private": true
 }

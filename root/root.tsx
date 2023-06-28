@@ -35,7 +35,7 @@ export const Root = () => {
 
   const [publishableKey, setPublishableKey] = useState("");
 
-  const { isLoggedIn } = useAppSelector((state) => state.userData);
+  const { isLoggedIn } = useAppSelector((state) => state.dataUser);
 
   const updateThemeInit = async () => {
     const themeMode = await fetchAsyncStorageTheme();

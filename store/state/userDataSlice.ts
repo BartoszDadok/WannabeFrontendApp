@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface IsLoggedIn {
+export interface Data {
   token: null | string;
   isLoggedIn: boolean;
   id: null | string;
@@ -9,7 +9,7 @@ export interface IsLoggedIn {
   languages: null | string;
 }
 
-const initialState: IsLoggedIn = {
+const initialState: Data = {
   token: null,
   isLoggedIn: false,
   id: null,
@@ -18,7 +18,7 @@ const initialState: IsLoggedIn = {
 };
 
 export const userDataSlice = createSlice({
-  name: "isLoggedIn",
+  name: "userData",
   initialState,
   reducers: {
     logIn: (

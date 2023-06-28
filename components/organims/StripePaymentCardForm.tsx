@@ -7,7 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import { FlashcardScreenNavigationProp } from "../../types/navigations.types";
 import { useRoute } from "@react-navigation/native";
 import { FlashCardScreenRouteProp } from "../../types/navigations.types";
-import { addLanguage } from "../../store/state/userDataSlice";
+import { addLanguage } from "../../store/state/dataUserSlice";
 import { colors } from "../../styles/colors";
 import { capitalizeLetters } from "../../utils/capitalizeLetters";
 import { LANGUAGE_IMAGES } from "../../utils/languagesImagesObject";
@@ -28,7 +28,7 @@ const StripePaymentCardForm = () => {
   const navigation = useNavigation<FlashcardScreenNavigationProp>();
   const dispatch = useAppDispatch();
 
-  const { id, email } = useAppSelector((state) => state.userData);
+  const { id, email } = useAppSelector((state) => state.dataUser);
   const { mode } = useAppSelector((state) => state.theme);
 
   const checkIfLanguageIsOnList = (
@@ -48,6 +48,7 @@ const StripePaymentCardForm = () => {
 
   const handleStripeButton = async () => {
     const language = languageName.toLowerCase();
+    if (!id || !email) return;
     try {
       setIsLoadingForStripeForm(true);
       const stripeData = await stripePayment({
@@ -55,7 +56,7 @@ const StripePaymentCardForm = () => {
         email,
         languageName,
       }).unwrap();
-      if (!stripeData && !stripeData.clientSecret) {
+      if (!stripeData || !stripeData.clientSecret) {
         return Alert.alert(stripeData.message);
       }
 

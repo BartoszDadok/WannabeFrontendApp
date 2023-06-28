@@ -26,7 +26,6 @@ export const veryficationTokenSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { addVeryficationToken, removeVeryficationToken } =
   veryficationTokenSlice.actions;
 

@@ -6,21 +6,20 @@ import LockIcon from "../atoms/LockIcon";
 import DeckFreeMark from "../atoms/DeckFreeMark";
 
 interface Props {
-  children: React.ReactNode;
+  language: string;
   amountOfCards: number;
   onPress: (id: string) => void;
   isfreeLanguage: boolean;
 }
 
 const DeckTab = ({
-  children,
+  language,
   amountOfCards,
   onPress,
   isfreeLanguage,
 }: Props) => {
-  const languageName = children as string;
-  const { isLoggedIn, languages } = useAppSelector((state) => state.userData);
-
+  const languageName = language;
+  const { isLoggedIn, languages } = useAppSelector((state) => state.dataUser);
   const { mode } = useAppSelector((state) => state.theme);
 
   const isActiveLanguage =
@@ -35,6 +34,7 @@ const DeckTab = ({
 
   return (
     <View
+      testID='Container'
       style={[
         styles.deckTabContainer,
         {

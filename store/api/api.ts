@@ -33,7 +33,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: apiEndpoint,
     prepareHeaders: (headers, { getState }) => {
-      const token = (getState() as RootState).userData.token;
+      const token = (getState() as RootState).dataUser.token;
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
@@ -48,7 +48,6 @@ export const api = createApi({
       query: (lanugageName) => ({
         url: `/${lanugageName}`,
       }),
-      keepUnusedDataFor: 0,
     }),
     newVeryficationToken: builder.query<ResendTokenResponse, ResendTokenQuery>({
       query: (token) => ({

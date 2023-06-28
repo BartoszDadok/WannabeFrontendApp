@@ -7,6 +7,7 @@ const ErrorInternetConnection = () => {
   const { mode } = useAppSelector((state) => state.theme);
   return (
     <View
+      testID='Container'
       style={[
         styles.errorContainer,
         { backgroundColor: colors[mode].backgroundColor },

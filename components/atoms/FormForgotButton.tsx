@@ -10,6 +10,7 @@ const FormForgotButton = () => {
       onPress={() => navigation.navigate("ResetPasswordScreen")}
       style={styles.container}
       android_ripple={{ color: "rgba(255,228,0,0,8)" }}
+      testID='ForgotPassword'
     >
       <Text style={styles.text}>Forgot password?</Text>
     </Pressable>

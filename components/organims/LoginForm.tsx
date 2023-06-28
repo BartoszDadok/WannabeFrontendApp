@@ -7,7 +7,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import FormForgotButton from "../atoms/FormForgotButton";
 import { useLoginMutation } from "../../store/api/api";
-import { logIn } from "../../store/state/userDataSlice";
+import { logIn } from "../../store/state/dataUserSlice";
 import { colors } from "../../styles/colors";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import {
@@ -36,7 +36,6 @@ const LoginForm = () => {
   const navigation = useNavigation<LoginScreenNavigationProp>();
   const route = useRoute<LoginScreenScreenRouteProp>();
   const afterResetPassword = route?.params?.afterResetPassword;
-
   const { mode } = useAppSelector((state) => state.theme);
   const [login, { data, isLoading, error, isSuccess }] = useLoginMutation();
 
@@ -56,91 +55,101 @@ const LoginForm = () => {
   };
 
   return (
-    <FormContainer>
-      {afterResetPassword && (
-        <View
-          style={[
-            styles.messageContainer,
-            { backgroundColor: colors[mode].primaryColor500 },
-          ]}
-        >
-          <Text
+    <View testID='LoginForm'>
+      <FormContainer>
+        {afterResetPassword && (
+          <View
             style={[
-              styles.messageContainerText,
-              { marginBottom: 7, color: colors[mode].textColor },
+              styles.messageContainer,
+              { backgroundColor: colors[mode].primaryColor500 },
             ]}
           >
-            Email with a reset link has been sent. Please, go to your mailbox
-            and change your password.
-          </Text>
-        </View>
-      )}
-      {isLoading && <ActivityIndicator size={40} color='rgba(255,228,0,1)' />}
-      {error && !isApiResponse(error) && (
-        <Text style={styles.error}>
-          Server error, check your internet connection!
-        </Text>
-      )}
-      {error &&
-        isApiResponse(error) &&
-        error.data &&
-        error.data.errors &&
-        error.data.errors.map((err: string) => {
-          return (
-            <Text key={shortid()} style={styles.error}>
-              {err}
+            <Text
+              style={[
+                styles.messageContainerText,
+                { marginBottom: 7, color: colors[mode].textColor },
+              ]}
+            >
+              Email with a reset link has been sent. Please, go to your mailbox
+              and change your password.
             </Text>
-          );
-        })}
+          </View>
+        )}
+        {isLoading && (
+          <ActivityIndicator
+            testID='LoadingIndicator'
+            size={40}
+            color='rgba(255,228,0,1)'
+          />
+        )}
+        {error && !isApiResponse(error) && (
+          <Text style={styles.error}>
+            Server error, check your internet connection!
+          </Text>
+        )}
+        {error &&
+          isApiResponse(error) &&
+          error.data &&
+          error.data.errors &&
+          error.data.errors.map((err: string) => {
+            return (
+              <Text key={shortid()} style={styles.error}>
+                {err}
+              </Text>
+            );
+          })}
 
-      <Formik
-        initialValues={userInfo}
-        validationSchema={validationSchema}
-        onSubmit={async (values, formikActions) => {
-          await login(values);
-        }}
-      >
-        {({
-          values,
-          errors,
-          handleChange,
-          handleBlur,
-          touched,
-          handleSubmit,
-          isSubmitting,
-        }) => {
-          const { email, password } = values;
-          return (
-            <>
-              <FormInput
-                onChangeText={handleChange("email")}
-                value={email}
-                onBlur={handleBlur("email")}
-                label='Email'
-                error={touched.email && errors.email}
-                autoCapitalize='none'
-                placeholder='example@email.com'
-              />
-              <FormInput
-                onChangeText={handleChange("password")}
-                value={password}
-                autoCapitalize='none'
-                label='Password'
-                placeholder='***********'
-                secureTextEntry
-                error={touched.password && errors.password}
-              />
-              <FormSubmitButton
-                submitting={isSubmitting}
-                onPress={handleSubmit}
-                title='Login'
-              />
-              <FormForgotButton />
-            </>
-          );
-        }}
-      </Formik>
-    </FormContainer>
+        <Formik
+          initialValues={userInfo}
+          validationSchema={validationSchema}
+          onSubmit={async (values, formikActions) => {
+            await login(values);
+          }}
+        >
+          {({
+            values,
+            errors,
+            handleChange,
+            handleBlur,
+            touched,
+            handleSubmit,
+            isSubmitting,
+          }) => {
+            const { email, password } = values;
+            return (
+              <>
+                <FormInput
+                  onChangeText={handleChange("email")}
+                  value={email}
+                  onBlur={handleBlur("email")}
+                  label='Email'
+                  error={touched.email && errors.email}
+                  testID='emailInput'
+                  autoCapitalize='none'
+                  placeholder='example@email.com'
+                />
+                <FormInput
+                  onChangeText={handleChange("password")}
+                  value={password}
+                  autoCapitalize='none'
+                  label='Password'
+                  placeholder='***********'
+                  secureTextEntry
+                  testID='passwordInput'
+                  error={touched.password && errors.password}
+                />
+                <FormSubmitButton
+                  submitting={isSubmitting}
+                  pressFunc={handleSubmit}
+                  title='Login'
+                />
+                <FormForgotButton />
+              </>
+            );
+          }}
+        </Formik>
+      </FormContainer>
+    </View>
   );
 };
 

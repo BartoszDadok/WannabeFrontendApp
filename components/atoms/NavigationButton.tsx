@@ -2,15 +2,18 @@ import React from "react";
 import { StyleSheet, Text, Pressable } from "react-native";
 import { useAppSelector } from "../../store/hooks";
 import { colors } from "../../styles/colors";
+
 interface Props {
   width: number;
   handler: any;
   title: string;
 }
+
 const NavigationButton = ({ handler, width, title }: Props) => {
   const { mode } = useAppSelector((state) => state.theme);
   return (
     <Pressable
+      testID='NavigationButton'
       android_ripple={{ color: "rgba(255,228,0,0,8)" }}
       onPress={handler}
       style={[

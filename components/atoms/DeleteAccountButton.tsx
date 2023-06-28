@@ -6,9 +6,9 @@ import { MutationTrigger } from "@reduxjs/toolkit/dist/query/react/buildHooks";
 import { MutationDefinition } from "@reduxjs/toolkit/dist/query";
 import { BaseQueryFn } from "@reduxjs/toolkit/dist/query";
 import { FetchArgs } from "@reduxjs/toolkit/dist/query";
-import { CustomError } from "../../store/api/api";
+import { CustomError } from "../../store/api/types";
 
-type DeleteAccountRequsetType = MutationTrigger<
+export type DeleteAccountRequsetType = MutationTrigger<
   MutationDefinition<
     any,
     BaseQueryFn<string | FetchArgs, unknown, CustomError, {}>,
@@ -24,9 +24,10 @@ interface DeleteAccountProps {
 
 const DeleteAccountButton = ({ deleteAccount }: DeleteAccountProps) => {
   const { mode } = useAppSelector((state) => state.theme);
-  const { id } = useAppSelector((state) => state.userData);
+  const { id } = useAppSelector((state) => state.dataUser);
   return (
     <Pressable
+      testID='DeleteAccount'
       style={[
         styles.buttonContainer,
         { backgroundColor: colors[mode].primaryColor500 },

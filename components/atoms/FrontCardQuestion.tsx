@@ -4,7 +4,7 @@ import RenderHtml, { HTMLSource } from "react-native-render-html";
 import { useAppSelector } from "../../store/hooks";
 import { colors } from "../../styles/colors";
 import { FlashList } from "@shopify/flash-list";
-import Animated, { FadeIn } from "react-native-reanimated";
+import Animated, { FadeIn, log } from "react-native-reanimated";
 import { codeBlockThemeLight } from "../../styles/codeBlockTheme";
 import { frontCardTagsStyles } from "../../styles/frontCardTagsStyles";
 
@@ -14,7 +14,6 @@ interface Props {
 const FrontCardQuestion = ({ frontCard }: Props) => {
   const frontCardData = frontCard[0];
   const hasCodeBlock = frontCard.length > 1;
-
   const { mode } = useAppSelector((state) => state.theme);
 
   const deviceWidth = Dimensions.get("window").width;

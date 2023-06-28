@@ -1,6 +1,6 @@
 import React from "react";
 import FormSubmitButton from "../atoms/FormSubmitButton";
-import { Formik } from "formik";
+import { Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import shortid from "shortid";
 import {
@@ -11,7 +11,6 @@ import {
   Text,
   Platform,
   TouchableWithoutFeedback,
-  Button,
   Keyboard,
   ActivityIndicator,
 } from "react-native";
@@ -20,6 +19,19 @@ import { useSendMessageMutation } from "../../store/api/api";
 import { colors } from "../../styles/colors";
 import { ScrollView } from "react-native-gesture-handler";
 import { useAppSelector } from "../../store/hooks";
+import { isApiResponse } from "../../utils/isApiErrorResponse";
+
+interface UserInfo {
+  name: string;
+  email: string;
+  message: string;
+}
+
+type FormikActions = FormikHelpers<{
+  name: string;
+  email: string;
+  message: string;
+}>;
 
 const validationSchema = Yup.object({
   email: Yup.string().email("Invalid email!").required("Email is required!"),
@@ -28,16 +40,27 @@ const validationSchema = Yup.object({
 });
 
 const ContactForm = () => {
-  const [sendMessage, { isSuccess, isLoading, error, isError }] =
+  const [sendMessage, { isSuccess, isLoading, error }] =
     useSendMessageMutation();
   const headerHeight = useHeaderHeight();
   const { mode } = useAppSelector((state) => state.theme);
-
   const userInfo = {
     name: "",
     email: "",
     message: "",
   };
+  const handleSubmit = async (
+    values: UserInfo,
+    formikActions: FormikActions
+  ) => {
+    formikActions.setSubmitting(true);
+    await sendMessage(values);
+    formikActions.setSubmitting(false);
+    formikActions.resetForm();
+  };
+  const isInternetError = error && !isApiResponse(error);
+  const isApiError =
+    error && isApiResponse(error) && error.data && error.data.errors;
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -66,7 +89,9 @@ const ContactForm = () => {
             </Text>
             <View>
               {isLoading && (
-                <ActivityIndicator size={40} color='rgba(255,228,0,1)' />
+                <View testID='LoadingIndicator'>
+                  <ActivityIndicator size={40} color='rgba(255,228,0,1)' />
+                </View>
               )}
             </View>
             <View style={styles.errorContainer}>
@@ -87,15 +112,12 @@ const ContactForm = () => {
                   </Text>
                 </View>
               )}
-              {error && !("data" in error) && (
+              {isInternetError && (
                 <Text style={[styles.error, { color: colors[mode].textColor }]}>
                   Server error, check your internet connection!
                 </Text>
               )}
-              {error &&
-                "data" in error &&
-                error.data &&
-                error.data.errors &&
+              {isApiError &&
                 error.data.errors.map((err: string) => {
                   return (
                     <Text
@@ -110,12 +132,7 @@ const ContactForm = () => {
             <Formik
               initialValues={userInfo}
               validationSchema={validationSchema}
-              onSubmit={async (values, formikActions) => {
-                formikActions.setSubmitting(true);
-                await sendMessage(values);
-                formikActions.setSubmitting(false);
-                formikActions.resetForm();
-              }}
+              onSubmit={handleSubmit}
             >
               {({
                 values,
@@ -150,6 +167,7 @@ const ContactForm = () => {
                       </Text>
                     ) : null}
                     <TextInput
+                      testID='nameInput'
                       onChangeText={handleChange("name")}
                       style={[
                         styles.input,
@@ -178,6 +196,7 @@ const ContactForm = () => {
                       </Text>
                     ) : null}
                     <TextInput
+                      testID='emailInput'
                       onChangeText={handleChange("email")}
                       value={email}
                       onBlur={handleBlur("email")}
@@ -208,6 +227,7 @@ const ContactForm = () => {
                       </Text>
                     ) : null}
                     <TextInput
+                      testID='messageInput'
                       onChangeText={handleChange("message")}
                       style={[
                         styles.textarea,
@@ -221,7 +241,7 @@ const ContactForm = () => {
 
                     <FormSubmitButton
                       submitting={isSubmitting}
-                      onPress={handleSubmit}
+                      pressFunc={handleSubmit}
                       title='Send message'
                     />
                   </ScrollView>

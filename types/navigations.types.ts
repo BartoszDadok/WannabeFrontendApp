@@ -19,6 +19,9 @@ export type StackNavigatorParamList = {
     signupScreen: boolean;
   };
   DeleteAccountScreen: undefined;
+  IOSPaymentScreen: {
+    languageName: string;
+  };
 };
 
 export type DecksScreenNavigationProp = NativeStackNavigationProp<

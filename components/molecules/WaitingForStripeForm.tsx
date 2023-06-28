@@ -7,6 +7,7 @@ const WaitingForStripe = () => {
   const { mode } = useAppSelector((state) => state.theme);
   return (
     <View
+      testID='Container'
       style={[
         styles.containerLoading,
         { backgroundColor: colors[mode].backgroundColor },

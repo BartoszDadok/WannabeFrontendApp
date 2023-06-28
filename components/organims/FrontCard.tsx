@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, TouchableWithoutFeedback, Dimensions } from "react-native";
 import Animated, { SlideInLeft } from "react-native-reanimated";
-import { HTMLSource } from "react-native-render-html";
 import FrontCardQuestion from "../atoms/FrontCardQuestion";
 import FrontCardHeader from "../atoms/FrontCardHeader";
 import FrontCardNavigationButtons from "../molecules/FrontCardNavigationButtons";
@@ -9,7 +8,7 @@ import GestureRecognizer from "react-native-swipe-gestures";
 import { useAppSelector } from "../../store/hooks";
 import { swapCard } from "../../store/state/flashCardSlice";
 import { useAppDispatch } from "../../store/hooks";
-type Flashcard = HTMLSource[][];
+
 interface Props {
   languageName: string;
 }
@@ -34,6 +33,7 @@ const FrontCard = ({ languageName }: Props) => {
 
   return (
     <GestureRecognizer
+      testID='GestureContainer'
       style={{
         flex: 1,
         justifyContent: "center",
@@ -43,7 +43,10 @@ const FrontCard = ({ languageName }: Props) => {
       onSwipeLeft={() => dispatch(swapCard("next"))}
       onSwipeRight={() => dispatch(swapCard("previous"))}
     >
-      <TouchableWithoutFeedback onPress={goToNextOrPreviousCardHandler}>
+      <TouchableWithoutFeedback
+        testID='Button'
+        onPress={goToNextOrPreviousCardHandler}
+      >
         <Animated.View entering={SlideInLeft} style={styles.container}>
           <FrontCardHeader languageName={languageName} />
           <FrontCardQuestion frontCard={frontCard} />

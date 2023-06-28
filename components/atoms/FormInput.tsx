@@ -7,6 +7,7 @@ interface FormInputProps {
   placeholder: string;
   label: string;
   value?: string;
+  testID?: string;
   onChangeText?: (value: string) => void;
   autoCapitalize: "none" | "sentences" | "words" | "characters" | undefined;
   error?: string | false | undefined;
@@ -16,7 +17,7 @@ interface FormInputProps {
 
 const FormInput = (props: FormInputProps) => {
   const { mode } = useAppSelector((state) => state.theme);
-  const { placeholder, label, error } = props;
+  const { placeholder, label, error, testID } = props;
   return (
     <>
       <View style={styles.inputContainer}>
@@ -27,6 +28,7 @@ const FormInput = (props: FormInputProps) => {
       </View>
       <TextInput
         {...props}
+        testID={testID}
         placeholder={placeholder}
         style={[styles.input, { backgroundColor: colors[mode].inputColor }]}
       />

@@ -12,11 +12,12 @@ import { useGetFlashcardsQuery } from "../store/api/api";
 import { useAppSelector } from "../store/hooks";
 import { isApiResponse } from "../utils/isApiErrorResponse";
 import { prepareFlashcardsToRender } from "../utils/prepareFlashcardsToRender";
-import ErrorInternetConnection from "../components/organims/ErrorInternetConnection";
+import ErrorInternetConnection from "../components/atoms/ErrorInternetConnection";
 import BeLoggedIn from "../components/organims/BeLoggedIn";
 import TypeScriptUnAvailable from "../components/organims/TypeScriptUnAvailable";
 import { setFLashcardsData } from "../store/state/flashCardSlice";
 import { useAppDispatch } from "../store/hooks";
+import { Platform } from "react-native";
 
 const FlashcardScreen = () => {
   const route = useRoute<FlashCardScreenRouteProp>();
@@ -50,9 +51,13 @@ const FlashcardScreen = () => {
     error.data.message &&
     error.data.message === "Unauthorized access!";
 
-  const navigateToStripePaymentScreen = () => {
+  const navigateToPaymentScreen = () => {
     if (areFlashCardsUnavailable) {
-      navigation.navigate("StripePaymentScreen", { languageName });
+      if (Platform.OS === "ios") {
+        return navigation.navigate("IOSPaymentScreen", { languageName });
+      } else {
+        navigation.navigate("StripePaymentScreen", { languageName });
+      }
     }
   };
 
@@ -66,7 +71,7 @@ const FlashcardScreen = () => {
 
   useEffect(() => {
     if (languageName === "typescript") return;
-    navigateToStripePaymentScreen();
+    navigateToPaymentScreen();
   }, [error]);
 
   if (languageName === "typescript") {

@@ -15,7 +15,6 @@ const BackCard = () => {
 
   const frontCard = flashcardsData[flashcardNumber][0][0];
   const backCard = flashcardsData[flashcardNumber][1];
-
   return (
     <Animated.View entering={SlideInLeft} style={styles.animatedContainer}>
       <View style={styles.container}>

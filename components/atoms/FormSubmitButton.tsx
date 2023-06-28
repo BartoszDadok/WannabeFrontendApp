@@ -5,13 +5,13 @@ import { colors } from "../../styles/colors";
 
 interface FormSubmitButtonProps {
   title: string;
-  onPress?: any;
+  pressFunc?: any;
   submitting: boolean;
 }
 
 const FormSubmitButton = ({
   title,
-  onPress,
+  pressFunc,
   submitting,
 }: FormSubmitButtonProps) => {
   const { mode } = useAppSelector((state) => state.theme);
@@ -20,7 +20,8 @@ const FormSubmitButton = ({
     : colors[mode].primaryColor500;
   return (
     <TouchableOpacity
-      onPress={!submitting ? onPress : null}
+      testID='SubmitButton'
+      onPress={!submitting ? pressFunc : null}
       style={[styles.container, { backgroundColor }]}
     >
       <Text style={styles.text}>{title}</Text>

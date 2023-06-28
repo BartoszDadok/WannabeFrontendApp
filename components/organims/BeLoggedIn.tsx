@@ -29,6 +29,7 @@ const BeLoggedIn = ({ languageName }: Props) => {
       </Text>
       <View style={styles.imageContainer}>
         <Image
+          testID='Image'
           style={{ width: 300, height: 100, resizeMode: "contain" }}
           source={(LANGUAGE_IMAGES as any)[languageName].uri}
         />

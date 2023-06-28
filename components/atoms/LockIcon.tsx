@@ -8,6 +8,7 @@ const LockIcon = ({ lockOpen }: Props) => {
   return lockOpen ? (
     <View>
       <Image
+        testID='lockOpen'
         style={{ width: 20, height: 20, marginRight: 10 }}
         source={require("../../assets/images/lock-opened.png")}
       />
@@ -15,6 +16,7 @@ const LockIcon = ({ lockOpen }: Props) => {
   ) : (
     <View>
       <Image
+        testID='lockClosed'
         style={{ width: 20, height: 20, marginRight: 10 }}
         source={require("../../assets/images/lock-closed.png")}
       />

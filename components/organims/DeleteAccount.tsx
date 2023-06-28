@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet } from "react-native";
 import React, { useEffect } from "react";
-import { useAppDispatch } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { useDeleteAccountMutation } from "../../store/api/api";
 import { useNavigation } from "@react-navigation/native";
-import { logOut } from "../../store/state/userDataSlice";
+import { logOut } from "../../store/state/dataUserSlice";
 import { DecksScreenNavigationProp } from "../../types/navigations.types";
 import { isApiResponse } from "../../utils/isApiErrorResponse";
 import { ActivityIndicator } from "react-native";
@@ -30,7 +30,13 @@ const DeleteAccount = () => {
     error && isApiResponse(error) && error.data && error.data.errors;
   return (
     <View style={styles.container}>
-      {isLoading && <ActivityIndicator size={40} color='rgba(255,228,0,1)' />}
+      {isLoading && (
+        <ActivityIndicator
+          testID='LoadingIndicator'
+          size={40}
+          color='rgba(255,228,0,1)'
+        />
+      )}
 
       <View style={styles.errorContainer}>
         {isInternetError && (
@@ -42,9 +48,10 @@ const DeleteAccount = () => {
         {isApiError &&
           error.data.errors.map((err: string) => {
             return (
-              <Text key={shortid()} style={styles.error}>
-                {err}
-              </Text>
+              <View key={shortid()}>
+                <Text style={styles.error}>{err}</Text>
+                <Text style={styles.error}>Please contact us.</Text>
+              </View>
             );
           })}
       </View>

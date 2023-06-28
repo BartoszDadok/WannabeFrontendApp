@@ -18,7 +18,6 @@ const BackCardQuestion = ({ backCard }: Props) => {
 
   const codeThemeColor = colors[mode].codeColor;
   const codeThemeClases = codeBlockThemeLight(codeThemeColor);
-
   const tagsStyles = backCardTagsStyles(mode);
 
   return (
@@ -28,11 +27,11 @@ const BackCardQuestion = ({ backCard }: Props) => {
         renderItem={({ item }: { item: HTMLSource }) => {
           const renderCodeBlockWithHorizontalScroll =
             "html" in item && item.html.startsWith(`<pre class="hljs scroll"`);
-
           if (renderCodeBlockWithHorizontalScroll) {
             return (
               <Animated.View entering={FadeIn} style={{ flex: 1 }}>
                 <ScrollView
+                  testID='ScrollContentContainer'
                   horizontal={true}
                   showsHorizontalScrollIndicator={true}
                   persistentScrollbar={true}
@@ -50,7 +49,11 @@ const BackCardQuestion = ({ backCard }: Props) => {
             );
           }
           return (
-            <Animated.View entering={FadeIn} style={{ flex: 1 }}>
+            <Animated.View
+              testID='WithoutScrollContentContainer'
+              entering={FadeIn}
+              style={{ flex: 1 }}
+            >
               <RenderHtml
                 containerStyle={{ fontColor: "white" }}
                 classesStyles={codeThemeClases}

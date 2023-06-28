@@ -2,7 +2,7 @@
   "expo": {
     "name": "Wannabe",
     "slug": "Wannabe",
-    "version": "1.7.0",
+    "version": "1.9.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -16,7 +16,7 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "buildNumber": "7.0.0",
+      "buildNumber": "9.0.0",
       "supportsTablet": true,
       "bundleIdentifier": "com.bartoszdadok.Wannabe",
       "infoPlist": {
@@ -24,7 +24,7 @@
       }
     },
     "android": {
-      "versionCode": 17,
+      "versionCode": 18,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

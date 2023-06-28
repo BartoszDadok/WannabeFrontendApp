@@ -46,40 +46,36 @@ const DecksScreen = () => {
       </Text>
       <View style={styles.deckContainer}>
         <DeckTab
+          language={"JavaScript"}
           isfreeLanguage={true}
           onPress={pressHandler}
-          amountOfCards={142}
-        >
-          JavaScript
-        </DeckTab>
+          amountOfCards={121}
+        />
         <DeckTab
+          language={"HTML"}
           isfreeLanguage={true}
           onPress={pressHandler}
-          amountOfCards={58}
-        >
-          HTML
-        </DeckTab>
+          amountOfCards={20}
+        />
         <DeckTab
+          language={"CSS"}
           isfreeLanguage={true}
           onPress={pressHandler}
-          amountOfCards={34}
-        >
-          CSS
-        </DeckTab>
+          amountOfCards={20}
+        />
         <DeckTab
+          language={"React"}
           isfreeLanguage={false}
           onPress={pressHandler}
-          amountOfCards={51}
-        >
-          React
-        </DeckTab>
+          amountOfCards={49}
+        />
+
         <DeckTab
+          language={"TypeScript"}
           isfreeLanguage={false}
           onPress={pressHandler}
           amountOfCards={54}
-        >
-          TypeScript
-        </DeckTab>
+        />
       </View>
     </View>
   );
