@@ -49,6 +49,7 @@ const SignupForm = () => {
   const [trigger, result] = api.endpoints.newVeryficationToken.useLazyQuery();
   const isSuccessResendEmail = result.isSuccess;
   const isLoadingResendEmail = result.isLoading;
+  const isErrorResendEmail = result.isError;
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -83,6 +84,7 @@ const SignupForm = () => {
               will be sent again.
             </Text>
             <Pressable
+              testID='NewVeryficationTokenButton'
               onPress={() => {
                 if (veryficationToken) {
                   trigger(veryficationToken);
@@ -105,8 +107,13 @@ const SignupForm = () => {
               </Text>
             )}
             {isLoadingResendEmail && (
-              <ActivityIndicator size={30} color={"black"} />
+              <ActivityIndicator
+                testID='LoadingIndicator'
+                size={30}
+                color={"black"}
+              />
             )}
+            {isErrorResendEmail && <Text>Error occured</Text>}
           </View>
         )}
         {isLoading && (

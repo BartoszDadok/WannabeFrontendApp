@@ -1,4 +1,4 @@
-import { render, fireEvent, waitFor, screen } from "../../../utils/test-utils";
+import { render, fireEvent, waitFor } from "../../../utils/test-utils";
 import BeLoggedIn from "../../../components/organims/BeLoggedIn";
 
 beforeEach(() => {

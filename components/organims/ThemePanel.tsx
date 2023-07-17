@@ -11,7 +11,7 @@ const ThemePanel = () => {
 
   const { mode } = useAppSelector((state) => state.theme);
   return (
-    <View style={styles.themeModesContainer}>
+    <View testID='ThemePanelContainer' style={styles.themeModesContainer}>
       <Text
         style={[styles.themeModesHeader, { color: colors[mode].textColor }]}
       >
@@ -19,6 +19,7 @@ const ThemePanel = () => {
       </Text>
       <View style={styles.themeModesButtonContainer}>
         <Pressable
+          testID='DarkModeButton'
           onPress={() => {
             dispatch(updateTheme("dark"));
           }}
@@ -38,6 +39,7 @@ const ThemePanel = () => {
           )}
         </Pressable>
         <Pressable
+          testID='LightModeButton'
           onPress={() => {
             dispatch(updateTheme("light"));
           }}
@@ -60,8 +62,6 @@ const ThemePanel = () => {
     </View>
   );
 };
-
-export default ThemePanel;
 
 const styles = StyleSheet.create({
   themeModesContainer: {
@@ -88,3 +88,4 @@ const styles = StyleSheet.create({
     fontFamily: "open-sans",
   },
 });
+export default ThemePanel;

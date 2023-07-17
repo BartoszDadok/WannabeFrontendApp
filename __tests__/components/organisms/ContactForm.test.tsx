@@ -1,6 +1,6 @@
 import { rest } from "msw";
 import { server } from "../../../setupTests";
-import { render, fireEvent, waitFor, screen } from "../../../utils/test-utils";
+import { render, fireEvent, waitFor } from "../../../utils/test-utils";
 import ContactForm from "../../../components/organims/ContactForm";
 import { act } from "react-test-renderer";
 

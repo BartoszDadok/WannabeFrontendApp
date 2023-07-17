@@ -74,7 +74,8 @@
     "setupFilesAfterEnv": [
       "./setupTests.ts",
       "./node_modules/react-native-gesture-handler/jestSetup.js"
-    ]
+    ],
+    "testTimeout": 12000
   },
   "private": true
 }

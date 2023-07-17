@@ -13,9 +13,9 @@ describe("WaitingForStripe", () => {
         theme: { mode: "dark" },
       },
     });
-    expect(getByTestId("Container").props.style[1].backgroundColor).toEqual(
-      "rgba(18,18,18,1)"
-    );
+    expect(
+      getByTestId("WaitingForStripeContainer").props.style[1].backgroundColor
+    ).toEqual("rgba(18,18,18,1)");
   });
 
   test("Should container has background color light when theme is light", () => {
@@ -24,8 +24,8 @@ describe("WaitingForStripe", () => {
         theme: { mode: "light" },
       },
     });
-    expect(getByTestId("Container").props.style[1].backgroundColor).toEqual(
-      "rgba(255,255,255, 1)"
-    );
+    expect(
+      getByTestId("WaitingForStripeContainer").props.style[1].backgroundColor
+    ).toEqual("rgba(255,255,255, 1)");
   });
 });

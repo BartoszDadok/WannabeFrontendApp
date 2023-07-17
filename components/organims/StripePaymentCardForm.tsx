@@ -16,6 +16,8 @@ import PaymentProcessed from "../molecules/PaymentProcessed";
 import { useLazyGetListOfLanguagesQuery } from "../../store/api/api";
 import { useStripePaymentMutation } from "../../store/api/api";
 
+type Error = { message: string } | { data: { errors: string[] } };
+
 const StripePaymentCardForm = () => {
   const route = useRoute<FlashCardScreenRouteProp>();
   const languageName = route.params.languageName.toLowerCase();
@@ -24,6 +26,13 @@ const StripePaymentCardForm = () => {
   const capitalizedLanguageName = capitalizeLetters(languageName);
   const [isLoadingForStripeForm, setIsLoadingForStripeForm] = useState(false);
   const [isWaitingForPayment, setIsWaitingForPayment] = useState(false);
+  const [errorPayment, setErrorPayment] = useState<{
+    isError: boolean;
+    message: string[];
+  }>({
+    isError: false,
+    message: [],
+  });
   const stripe = useStripe();
   const navigation = useNavigation<FlashcardScreenNavigationProp>();
   const dispatch = useAppDispatch();
@@ -47,6 +56,7 @@ const StripePaymentCardForm = () => {
   };
 
   const handleStripeButton = async () => {
+    setErrorPayment({ isError: false, message: [] });
     const language = languageName.toLowerCase();
     if (!id || !email) return;
     try {
@@ -57,21 +67,20 @@ const StripePaymentCardForm = () => {
         languageName,
       }).unwrap();
       if (!stripeData || !stripeData.clientSecret) {
-        return Alert.alert(stripeData.message);
+        setIsLoadingForStripeForm(false);
+        throw Error("Stripe Payment data error occured");
       }
-
       const initiatedSheet = await initStripeSheet(stripeData);
+
       if (initiatedSheet.error) {
-        console.error(initiatedSheet.error);
-        return Alert.alert(initiatedSheet.error.message);
+        throw Error("Initiation stripe sheet error occured.");
       }
 
       setIsLoadingForStripeForm(false);
 
       const presentSheet = await stripe.presentPaymentSheet();
       if (presentSheet.error) {
-        console.log(presentSheet.error);
-        return Alert.alert(presentSheet.error.message);
+        throw Error("Presentation stripe sheet error occured");
       }
 
       setIsWaitingForPayment(true);
@@ -81,8 +90,9 @@ const StripePaymentCardForm = () => {
       const listOfLanguages = (await getListOfLanguages().unwrap()) as {
         languages: string[];
       };
+
       if (!listOfLanguages || !listOfLanguages.languages) {
-        return Alert.alert("Language not found");
+        throw Error("Language not found");
       }
 
       setIsWaitingForPayment(false);
@@ -96,13 +106,23 @@ const StripePaymentCardForm = () => {
         navigation.navigate("DecksScreen");
       }
     } catch (err) {
-      console.log(err);
-      Alert.alert("Payment failed!");
+      const error = err as Error;
+
+      const selectedError =
+        "message" in error ? error.message : error.data.errors[0];
+
+      setErrorPayment({
+        isError: true,
+        message: [
+          `Payment failed, please try again or contact us. ${selectedError}`,
+        ],
+      });
     }
   };
 
   return (
     <View
+      testID='StripePaymentCardContainer'
       style={{
         flex: 1,
         justifyContent: "center",
@@ -110,6 +130,11 @@ const StripePaymentCardForm = () => {
         padding: 20,
       }}
     >
+      {errorPayment.isError && (
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>{errorPayment.message}</Text>
+        </View>
+      )}
       {isLoadingForStripeForm && <WaitingForStripe />}
       {isWaitingForPayment && <PaymentProcessed />}
 
@@ -127,6 +152,7 @@ const StripePaymentCardForm = () => {
       </View>
 
       <Pressable
+        testID='StripeButton'
         android_ripple={{ color: "rgba(255,228,0,0,8)" }}
         style={{ backgroundColor: colors[mode].primaryColor500 }}
         onPress={handleStripeButton}
@@ -183,6 +209,23 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     marginVertical: 30,
+  },
+  errorContainer: {
+    backgroundColor: "rgb(255, 99, 71)",
+    position: "absolute",
+    top: 0,
+    flexDirection: "column",
+    width: "100%",
+    margin: 10,
+    justifyContent: "center",
+    alignContent: "center",
+    paddingVertical: 10,
+    paddingHorizontal: 40,
+  },
+  errorText: {
+    color: "white",
+    textAlign: "center",
+    fontSize: 17,
   },
 });
 

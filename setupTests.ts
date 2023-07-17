@@ -40,6 +40,9 @@ export const handlers = [
   rest.post("https://wannabe.cyclic.app/*", (_req, res, ctx) => {
     return res(ctx.json({}));
   }),
+  rest.get("https://wannabe.cyclic.app/*", (_req, res, ctx) => {
+    return res(ctx.json({}));
+  }),
 ];
 
 export const server = setupServer(...handlers);
