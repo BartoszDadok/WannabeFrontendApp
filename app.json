@@ -2,7 +2,7 @@
   "expo": {
     "name": "Wannabe",
     "slug": "Wannabe",
-    "version": "1.13.0",
+    "version": "1.14.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -16,7 +16,7 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "buildNumber": "22.0.0",
+      "buildNumber": "21.0.0",
       "supportsTablet": true,
       "bundleIdentifier": "com.bartoszdadok.Wannabe"
     },

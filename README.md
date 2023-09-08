@@ -5,7 +5,7 @@
 **Wannabe App** has been created in order to help people prepare for their interviews and better understand programming languages. There are hundreds of sample interview questions with answers and detailed explanations for frontend technologies.
 
 **Everyone can download Wannabe App**.
-JavaScript, HTML and CSS tutorials are available for free. TypeScript and React are paid features.
+All content is for free.
 
 **Wannabe App is available in Apple and Play stores:**
 
