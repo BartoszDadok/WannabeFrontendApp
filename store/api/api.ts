@@ -20,10 +20,6 @@ import {
   ContactQuery,
   ResetPasswordQuery,
   DeleteAccountResponse,
-  PublishableKeyResponse,
-  StripePaymentQuery,
-  StripePaymentResponse,
-  LanguagesListResponse,
   DeleteAccountQuery,
   ResendTokenQuery,
 } from "./types";
@@ -90,27 +86,6 @@ export const api = createApi({
         body: { id },
       }),
     }),
-    getPublishableStripeKey: builder.query<PublishableKeyResponse, void>({
-      query: () => ({
-        url: "/stripe-publishable-key",
-      }),
-    }),
-    stripePayment: builder.mutation<StripePaymentResponse, StripePaymentQuery>({
-      query: (data) => ({
-        url: "/stripe-react-payment",
-        method: "POST",
-        body: {
-          id: data.id,
-          email: data.email,
-          languageName: data.languageName,
-        },
-      }),
-    }),
-    getListOfLanguages: builder.query<LanguagesListResponse, void>({
-      query: () => ({
-        url: "/allLanguages",
-      }),
-    }),
   }),
 });
 export const { useLazyNewVeryficationTokenQuery } = api;
@@ -120,6 +95,3 @@ export const { useLoginMutation } = api;
 export const { useResetPasswordMutation } = api;
 export const { useSendMessageMutation } = api;
 export const { useDeleteAccountMutation } = api;
-export const { useLazyGetPublishableStripeKeyQuery } = api;
-export const { useStripePaymentMutation } = api;
-export const { useLazyGetListOfLanguagesQuery } = api;

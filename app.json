@@ -2,7 +2,7 @@
   "expo": {
     "name": "Wannabe",
     "slug": "Wannabe",
-    "version": "1.9.0",
+    "version": "1.13.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
@@ -16,15 +16,12 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "buildNumber": "9.0.0",
+      "buildNumber": "22.0.0",
       "supportsTablet": true,
-      "bundleIdentifier": "com.bartoszdadok.Wannabe",
-      "infoPlist": {
-        "NSCameraUsageDescription": "This app uses the camera to scan cards by Stripe."
-      }
+      "bundleIdentifier": "com.bartoszdadok.Wannabe"
     },
     "android": {
-      "versionCode": 18,
+      "versionCode": 22,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -34,15 +31,7 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      [
-        "@stripe/stripe-react-native",
-        {
-          "enableGooglePay": true,
-          "merchantDisplayName": ""
-        }
-      ]
-    ],
+    "plugins": [],
     "extra": {
       "eas": {
         "projectId": "8955b6a9-78a0-4095-8011-c455b763f435"

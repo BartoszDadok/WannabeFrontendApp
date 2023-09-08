@@ -13,11 +13,8 @@ import { useAppSelector } from "../store/hooks";
 import { isApiResponse } from "../utils/isApiErrorResponse";
 import { prepareFlashcardsToRender } from "../utils/prepareFlashcardsToRender";
 import ErrorInternetConnection from "../components/atoms/ErrorInternetConnection";
-import BeLoggedIn from "../components/organims/BeLoggedIn";
-import TypeScriptUnAvailable from "../components/organims/TypeScriptUnAvailable";
 import { setFLashcardsData } from "../store/state/flashCardSlice";
 import { useAppDispatch } from "../store/hooks";
-import { Platform } from "react-native";
 
 const FlashcardScreen = () => {
   const route = useRoute<FlashCardScreenRouteProp>();
@@ -28,6 +25,7 @@ const FlashcardScreen = () => {
   const { activeCardSide, flashcardsData } = useAppSelector(
     (state) => state.flashcard
   );
+
   const navigation = useNavigation<FlashcardScreenNavigationProp>();
 
   const { data, isLoading, isSuccess, error } =
@@ -35,31 +33,8 @@ const FlashcardScreen = () => {
 
   const isInternetError = error && !isApiResponse(error);
 
-  const areFlashCardsUnavailable =
-    error &&
-    isApiResponse(error) &&
-    error.data &&
-    error.data.errors &&
-    error.data.errors[0] === "Unauthorized access to flashcards!";
-
   const areFlashCardsAvailable =
     !isLoading && isSuccess && flashcardsData && flashcardsData.length > 0;
-  const isUserLogOut =
-    error &&
-    isApiResponse(error) &&
-    error.data &&
-    error.data.message &&
-    error.data.message === "Unauthorized access!";
-
-  const navigateToPaymentScreen = () => {
-    if (areFlashCardsUnavailable) {
-      if (Platform.OS === "ios") {
-        return navigation.navigate("IOSPaymentScreen", { languageName });
-      } else {
-        navigation.navigate("StripePaymentScreen", { languageName });
-      }
-    }
-  };
 
   useEffect(() => {
     if (isSuccess && data) {
@@ -68,19 +43,6 @@ const FlashcardScreen = () => {
       dispatch(setFLashcardsData(preparedFlashcards));
     }
   }, [data, isSuccess]);
-
-  useEffect(() => {
-    if (languageName === "typescript") return;
-    navigateToPaymentScreen();
-  }, [error]);
-
-  if (languageName === "typescript") {
-    return <TypeScriptUnAvailable />;
-  }
-
-  if (isUserLogOut) {
-    return <BeLoggedIn languageName={languageName} />;
-  }
 
   if (isInternetError) {
     return <ErrorInternetConnection />;

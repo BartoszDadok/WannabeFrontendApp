@@ -58,22 +58,3 @@ export interface DeleteAccountResponse {
 }
 
 export type DeleteAccountQuery = string;
-
-export interface PublishableKeyResponse {
-  publishableStripeKey: string;
-}
-
-export interface StripePaymentResponse {
-  clientSecret: string;
-  message: string;
-}
-
-export interface StripePaymentQuery {
-  id: string;
-  email: string;
-  languageName: string;
-}
-
-export interface LanguagesListResponse {
-  languages: string[];
-}

@@ -8,12 +8,6 @@ jest.mock("@react-native-async-storage/async-storage", () =>
   require("@react-native-async-storage/async-storage/jest/async-storage-mock")
 );
 
-jest.mock("@stripe/stripe-react-native", () => ({
-  StripeProvider: jest.fn(({ children }) => children),
-  CardField: jest.fn(() => null),
-  presentPaymentSheet: jest.fn(),
-  initPaymentSheet: jest.fn(),
-}));
 // include this line for mocking react-native-gesture-handler
 import "react-native-gesture-handler/jestSetup";
 

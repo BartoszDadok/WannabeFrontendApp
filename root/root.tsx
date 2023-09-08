@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StackNavigatorParamList } from "../types/navigations.types";
 import { logIn } from "../store/state/userDataSlice";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { StripeProvider } from "@stripe/stripe-react-native";
 import { removeVeryficationToken } from "../store/state/veificationTokenSlice";
 import FlashcardScreen from "../screens/FlashcardScreen";
 import { colors } from "../styles/colors";
@@ -14,14 +13,12 @@ import { updateTheme } from "../store/state/themeSlice";
 import * as SplashScreen from "expo-splash-screen";
 import { fetchAsyncStorage } from "../utils/fetchAsyncStorage";
 import { fetchAsyncStorageTheme } from "../utils/fetchAsyncStorageTheme";
-import { useLazyGetPublishableStripeKeyQuery } from "../store/api/api";
 
 SplashScreen.preventAutoHideAsync();
 
 const Stack = createNativeStackNavigator<StackNavigatorParamList>();
 
 export const Root = () => {
-  const [getPublishableStripeKey] = useLazyGetPublishableStripeKeyQuery();
   const { mode } = useAppSelector((state) => state.theme);
   const dispatch = useAppDispatch();
 
@@ -32,8 +29,6 @@ export const Root = () => {
       background: colors[mode].backgroundColor,
     },
   };
-
-  const [publishableKey, setPublishableKey] = useState("");
 
   const { isLoggedIn } = useAppSelector((state) => state.dataUser);
 
@@ -54,17 +49,6 @@ export const Root = () => {
     }
   };
 
-  const stripeInit = async () => {
-    try {
-      const { publishableStripeKey } = await getPublishableStripeKey().unwrap();
-      if (publishableStripeKey) {
-        setPublishableKey(publishableStripeKey);
-      }
-    } catch (err) {
-      console.log(err);
-      console.warn("Unable to fetch pusblishable key");
-    }
-  };
   const removeVeryfiToken = () => {
     if (isLoggedIn) {
       dispatch(removeVeryficationToken());
@@ -86,10 +70,6 @@ export const Root = () => {
   }, []);
 
   useEffect(() => {
-    stripeInit();
-  }, []);
-
-  useEffect(() => {
     removeVeryfiToken();
   }, [isLoggedIn]);
 
@@ -98,37 +78,34 @@ export const Root = () => {
   }, []);
 
   return (
-    <StripeProvider publishableKey={publishableKey}>
-      <NavigationContainer theme={navTheme}>
-        <Stack.Navigator
-          screenOptions={{
+    <NavigationContainer theme={navTheme}>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+          presentation: Platform.OS === "ios" ? undefined : "transparentModal",
+          animation: "fade",
+        }}
+      >
+        <Stack.Screen
+          options={{
             headerShown: false,
-            presentation:
-              Platform.OS === "ios" ? undefined : "transparentModal",
-            animation: "fade",
           }}
-        >
-          <Stack.Screen
-            options={{
-              headerShown: false,
-            }}
-            name='Drawer'
-            component={DrawerNavigator}
-          />
-          <Stack.Screen
-            options={{
-              headerShown: true,
-              title: "Go back to decks",
-              headerTintColor: colors[mode].textColor,
-              headerStyle: {
-                backgroundColor: colors[mode].menuColor,
-              },
-            }}
-            name='FlashcardScreen'
-            component={FlashcardScreen}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </StripeProvider>
+          name='Drawer'
+          component={DrawerNavigator}
+        />
+        <Stack.Screen
+          options={{
+            headerShown: true,
+            title: "Go back to decks",
+            headerTintColor: colors[mode].textColor,
+            headerStyle: {
+              backgroundColor: colors[mode].menuColor,
+            },
+          }}
+          name='FlashcardScreen'
+          component={FlashcardScreen}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };

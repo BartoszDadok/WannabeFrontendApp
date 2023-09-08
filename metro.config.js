@@ -1,14 +1,14 @@
 // Learn more https://docs.expo.io/guides/customizing-metro
-const { getDefaultConfig } = require('expo/metro-config');
+const { getDefaultConfig } = require("expo/metro-config");
 
-const blockList = /\\__tests__\\.*|\\.git\\.*/
+const blockList = /\\__tests__\\.*|\\.git\\.*/;
 
 const defaultConfig = getDefaultConfig(__dirname);
 
 module.exports = {
-    ...defaultConfig,
-    resolver: {
-        ...defaultConfig.resolver,
-        blockList,
-    }
+  ...defaultConfig,
+  resolver: {
+    ...defaultConfig.resolver,
+    blockList,
+  },
 };

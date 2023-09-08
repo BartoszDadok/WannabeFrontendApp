@@ -13,11 +13,9 @@ import { useAppSelector, useAppDispatch } from "../store/hooks";
 import { logOut } from "../store/state/dataUserSlice";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ResetPasswordScreen from "../screens/ResetPasswordScreen";
-import StripePaymentScreen from "../screens/StripePaymentScreen";
 import { StatusBar } from "react-native";
 import ThemePanel from "../components/organims/ThemePanel";
 import DeleteAccountScreen from "../screens/DeleteAccountScreen";
-import IOSPaymentScreen from "../screens/IOSPaymentScreen";
 
 const Drawer = createDrawerNavigator();
 
@@ -145,22 +143,6 @@ const DrawerNavigator = () => {
         component={ResetPasswordScreen}
         options={{
           title: "Reset password",
-          drawerItemStyle: { display: "none" },
-        }}
-      />
-      <Drawer.Screen
-        name='StripePaymentScreen'
-        component={StripePaymentScreen}
-        options={{
-          title: "Stripe payment",
-          drawerItemStyle: { display: "none" },
-        }}
-      />
-      <Drawer.Screen
-        name='IOSPaymentScreen'
-        component={IOSPaymentScreen}
-        options={{
-          title: "IOS payment",
           drawerItemStyle: { display: "none" },
         }}
       />

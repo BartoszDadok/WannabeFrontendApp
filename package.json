@@ -5,7 +5,7 @@
   "scripts": {
     "start": "expo start",
     "tunnel": "expo start --tunnel",
-    "android": "expo start --anid",
+    "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest ./__tests__",
@@ -21,12 +21,10 @@
     "@react-navigation/native-stack": "^6.9.10",
     "@reduxjs/toolkit": "^1.9.2",
     "@shopify/flash-list": "1.4.0",
-    "@stripe/stripe-react-native": "0.23.3",
     "abort-controller": "^3.0.0",
     "cross-fetch": "^3.1.6",
     "expo": "^48.0.0",
     "expo-font": "~11.1.1",
-    "expo-in-app-purchases": "^14.1.1",
     "expo-splash-screen": "~0.18.1",
     "expo-status-bar": "~1.4.4",
     "formik": "^2.2.9",
@@ -35,6 +33,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.6",
+    "react-native-dotenv": "^3.4.9",
     "react-native-gesture-handler": "~2.9.0",
     "react-native-progress": "^5.0.0",
     "react-native-reanimated": "~2.14.4",
@@ -76,6 +75,9 @@
       "./node_modules/react-native-gesture-handler/jestSetup.js"
     ],
     "testTimeout": 12000
+  },
+  "resolutions": {
+    "expo/expo-asset": "8.9.1"
   },
   "private": true
 }

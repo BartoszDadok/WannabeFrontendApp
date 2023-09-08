@@ -65,16 +65,9 @@ const DecksScreen = () => {
         />
         <DeckTab
           language={"React"}
-          isfreeLanguage={false}
+          isfreeLanguage={true}
           onPress={pressHandler}
           amountOfCards={49}
-        />
-
-        <DeckTab
-          language={"TypeScript"}
-          isfreeLanguage={false}
-          onPress={pressHandler}
-          amountOfCards={54}
         />
       </View>
     </View>
