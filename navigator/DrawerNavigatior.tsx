@@ -77,7 +77,7 @@ const DrawerNavigator = () => {
             <Pressable onPress={navigation.toggleDrawer}>
               <Text>
                 <Ionicons
-                  name='ios-menu-outline'
+                  name="menu"
                   size={40}
                   color={colors[mode].textColor}
                 />
@@ -103,7 +103,7 @@ const DrawerNavigator = () => {
       })}
     >
       <Drawer.Screen
-        name='DecksScreen'
+        name="DecksScreen"
         component={DecksScreen}
         options={{
           title: "Decs",
@@ -111,7 +111,7 @@ const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name='ContactScreen'
+        name="ContactScreen"
         component={ContactForm}
         options={{
           title: "Contact",
@@ -120,7 +120,7 @@ const DrawerNavigator = () => {
       />
 
       <Drawer.Screen
-        name='SignupScreen'
+        name="SignupScreen"
         component={AuthScreen}
         initialParams={{ signupScreen: true }}
         options={{
@@ -130,7 +130,7 @@ const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name='LoginScreen'
+        name="LoginScreen"
         component={AuthScreen}
         options={{
           title: "Log in",
@@ -139,7 +139,7 @@ const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name='ResetPasswordScreen'
+        name="ResetPasswordScreen"
         component={ResetPasswordScreen}
         options={{
           title: "Reset password",
@@ -147,7 +147,7 @@ const DrawerNavigator = () => {
         }}
       />
       <Drawer.Screen
-        name='DeleteAccount'
+        name="DeleteAccount"
         component={DeleteAccountScreen}
         options={{
           title: "Delete account",

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
 import React from "react";
 import * as Progress from "react-native-progress";
 import { colors } from "../../styles/colors";
@@ -11,7 +11,7 @@ const AppLoading = ({ theme }: { theme: "dark" | "light" }) => {
         { backgroundColor: colors[theme].backgroundColor },
       ]}
     >
-      <Progress.CircleSnail color='rgba(255,228,0,1)' />
+      <ActivityIndicator color="rgba(255,228,0,1)" />
       <Text style={[styles.text, { color: colors[theme].textColor }]}>
         Loading...
       </Text>

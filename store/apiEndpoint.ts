@@ -1,1 +1,1 @@
-export const apiEndpoint = "https://wannabe.cyclic.app/";
+export const apiEndpoint = "https://wannabe-08c7f1db71ca.herokuapp.com/";
